@@ -1,13 +1,6 @@
-from flask import Flask
+import folium
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def hello_world():
-    return "Hellow,World"
+folium_map = folium.Map(location=[39.701437, 141.136723], zoom_start=15)
 
 
-if __name__ == "__main__":
-    # 使用するポートを明示
-    app.run(port=8000, debug=True)
+folium_map.save("folium_map.html")
