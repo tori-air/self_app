@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_b7c01a3e9f1cd80bcd233a622b2f0086 {
+                #map_4061f917ad9987d34691fab3b94a1890 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -39,18 +39,18 @@
 <body>
     
     
-            <div class="folium-map" id="map_b7c01a3e9f1cd80bcd233a622b2f0086" ></div>
+            <div class="folium-map" id="map_4061f917ad9987d34691fab3b94a1890" ></div>
         
 </body>
 <script>
     
     
-            var map_b7c01a3e9f1cd80bcd233a622b2f0086 = L.map(
-                "map_b7c01a3e9f1cd80bcd233a622b2f0086",
+            var map_4061f917ad9987d34691fab3b94a1890 = L.map(
+                "map_4061f917ad9987d34691fab3b94a1890",
                 {
                     center: [39.699657, 141.156873],
                     crs: L.CRS.EPSG3857,
-                    zoom: 15,
+                    zoom: 40,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -60,19 +60,25 @@
 
         
     
-            var tile_layer_4478c2b5ade99b330bb3dc1a5403123e = L.tileLayer(
+            var tile_layer_585ec1d03f2f4560722d80a2322aaca8 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
             );
         
     
-            tile_layer_4478c2b5ade99b330bb3dc1a5403123e.addTo(map_b7c01a3e9f1cd80bcd233a622b2f0086);
+            tile_layer_585ec1d03f2f4560722d80a2322aaca8.addTo(map_4061f917ad9987d34691fab3b94a1890);
         
     
-            var marker_c3145523f47876ca431fbdbcc7914b5c = L.marker(
+            var marker_bcb4a6adde0805f0ffda7cd6ff36a0ca = L.marker(
                 [39.699657, 141.156873],
                 {}
-            ).addTo(map_b7c01a3e9f1cd80bcd233a622b2f0086);
+            ).addTo(map_4061f917ad9987d34691fab3b94a1890);
+        
+    
+            var icon_ebfb17e368b64543c72edf005b0850e1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "home", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_bcb4a6adde0805f0ffda7cd6ff36a0ca.setIcon(icon_ebfb17e368b64543c72edf005b0850e1);
         
 </script>
 </html>
