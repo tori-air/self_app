@@ -10,8 +10,8 @@ G = ox.graph_from_place(area, network_type="walk")
 # 出発地点と到着地点を指定
 # departure = (39.701437, 141.136723)
 # destination = (39.699657, 141.156873)
-departure_lat, departure_lon = ox.geocoder.geocode("岩手県庁")
-destination_lat, destination_lon = ox.geocoder.geocode("盛岡駅")
+departure_lat, departure_lon = ox.geocoder.geocode("盛岡駅")
+destination_lat, destination_lon = ox.geocoder.geocode("ベアレン醸造所")
 
 # 2地点の近似ノードを取得する
 # 順番は経度､緯度
@@ -27,7 +27,7 @@ folium_map = ox.plot_route_folium(G, shortest_route)
 # folium_map = folium.Map(location=[destination_lat, destination_lon], zoom_start=30)
 
 # 地図にマーカーを追加
-folium.Marker(location=[departure_lat, departure_lon]).add_to(folium_map)
-folium.Marker(location=[destination_lat, destination_lon]).add_to(folium_map)
+folium.Marker(location=[departure_lat, departure_lon], icon=folium.Icon(icon="user")).add_to(folium_map)
+folium.Marker(location=[destination_lat, destination_lon], icon=folium.Icon(color="red", icon="map-marker")).add_to(folium_map)
 
 folium_map.save("templates/folium_map.html")
