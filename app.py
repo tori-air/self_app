@@ -8,8 +8,17 @@ ox.config(use_cache=False)
 app = Flask(__name__)
 
 
-@app.route("/foliummap")
+@app.route("/")
+def serch():
+    return render_template("serch.html")
+
+
+@app.route("/foliummap", methods=["POST"])
 def foliummap():
+    # フォームデータから出発地と目的地を取得
+    departure = request.form.get("departure")
+    destination = request.form.get("destination")
+
     # 経路探索対象地域を設定
     area = ["Morioka,Iwate,Japan"]
 
@@ -17,8 +26,8 @@ def foliummap():
     G = ox.graph_from_place(area, network_type="walk")
 
     # 出発地点と到着地点を指定
-    departure_lat, departure_lon = ox.geocoder.geocode("岩手県庁")
-    destination_lat, destination_lon = ox.geocoder.geocode("岩手大学")
+    departure_lat, departure_lon = ox.geocoder.geocode(departure)
+    destination_lat, destination_lon = ox.geocoder.geocode(destination)
 
     # 2地点の近似ノードを取得する. 順番は経度､緯度
     dep_node = ox.nearest_nodes(G, departure_lon, departure_lat)
