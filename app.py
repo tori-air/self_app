@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def serch():
-    return render_template("serch.html")
+    return render_template("folium_map.html")
 
 
 @app.route("/foliummap", methods=["POST"])
