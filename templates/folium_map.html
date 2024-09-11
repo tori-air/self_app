@@ -19,12 +19,10 @@
     </style>
 </head>
 <body>
-    <div style="height:900px; width:1024px;">
+    <div style="height:1000px; width:1800px;">
         <!-- Folium mapの表示 -->
         {% include "map.html" %}
     </div>
-
-    <!-- search.html の内容を直接埋め込む -->
     <div id="search-box">
         <form id="route-form" method="POST" action="/foliummap">
             <label>出発地:</label><br>

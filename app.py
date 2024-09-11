@@ -10,7 +10,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def serch():
-    return render_template("folium_map.html")
+    # 初期地図の設定
+    start_coords = (39.7016, 141.1365)
+
+    # OpenStreetMap のタイルを使用して、経路を地図にプロット
+    folium_map = folium.Map(location=start_coords, zoom_start=60, tiles="OpenStreetMap")
+    folium.Marker(location=start_coords, icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
+
+    folium_map.save("templates/initmap.html")
+    return render_template("serch.html")
 
 
 @app.route("/foliummap", methods=["POST"])
@@ -101,6 +109,9 @@ def foliummap():
 
     # backstreet_route_2_time_sec = calculate_route_travel_time(G, backstreet_route_2)
     # backstreet_route_2_time_min = backstreet_route_2_time_sec / 60  # 分に変換
+
+    # OpenStreetMap のタイルを使用して、経路を地図にプロット
+    folium_map = folium.Map(location=[departure_lat, departure_lon], zoom_start=60, tiles="OpenStreetMap")
 
     # 経路を地図にプロット
     folium_map = ox.plot_route_folium(

@@ -4,12 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Folium Map</title>
+    <title>folium map</title>
     <style>
-        #map {
-            height: 768px;
-            width: 1024px;
-        }
         #search-box {
             position: absolute;
             top: 10px;
@@ -20,13 +16,13 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
-        input {
-            margin-bottom: 5px;
-            width: 200px;
-        }
     </style>
 </head>
 <body>
+    <div style="height:1000px; width:1800px;">
+        <!-- Folium mapの表示 -->
+        {% include "initmap.html" %}
+    </div>
     <div id="search-box">
         <form id="route-form" method="POST" action="/foliummap">
             <label>出発地:</label><br>
@@ -35,6 +31,7 @@
             <input type="text" id="destination" name="destination" placeholder="目的地を入力"><br>
             <button type="submit">検索</button>
         </form>
-    </div>  
+    </div>
+
 </body>
 </html>
