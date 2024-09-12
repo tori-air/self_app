@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request
 import folium
+import math
 import osmnx as ox
 
-# キャッシュの無効化
-ox.config(use_cache=False)
 
 app = Flask(__name__)
 
@@ -11,11 +10,11 @@ app = Flask(__name__)
 @app.route("/")
 def serch():
     # 初期地図の設定
-    start_coords = (39.7016, 141.1365)
+    start_coord = [39.7036, 141.1527]
 
     # OpenStreetMap のタイルを使用して、経路を地図にプロット
-    folium_map = folium.Map(location=start_coords, zoom_start=60, tiles="OpenStreetMap")
-    folium.Marker(location=start_coords, icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
+    folium_map = folium.Map(location=start_coord, zoom_start=15, tiles="OpenStreetMap")
+    folium.Marker(location=start_coord, icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
 
     folium_map.save("templates/initmap.html")
     return render_template("serch.html")
@@ -87,37 +86,32 @@ def foliummap():
     backstreet_route_2 = ox.shortest_path(G, dep_node, des_node, weight=custom_weight_2)
 
     # 路線上のエッジごとの所要時間を計算する関数
-    # def calculate_route_travel_time(G, route):
-    #     total_time_sec = 0
-    #     for u, v in zip(route[:-1], route[1:]):
-    #         edge_data = G.get_edge_data(u, v)[0]
-    #         length = edge_data.get("length", 1)  # メートル
-    #         speed_kph = edge_data.get("maxspeed", 5)  # デフォルト速度 30 km/h
-    #         if isinstance(speed_kph, list):
-    #             speed_kph = min(speed_kph)  # リストの場合は最小値を使用
-    #         speed_mps = speed_kph * 1000 / 3600  # km/h を m/s に変換
-    #         travel_time_sec = length / speed_mps  # 時間 = 距離 / 速度
-    #         total_time_sec += travel_time_sec
-    #     return total_time_sec
+    def calculate_route_time(route):
+        total_time_sec = 0
+        for u, v in zip(route[:-1], route[1:]):
+            edge_data = G.get_edge_data(u, v)[0]
+            length = edge_data.get("length", 1)  # メートル
+            speed_kph = edge_data.get("maxspeed", 5)  # デフォルト速度 5 km/h
+            speed_mps = speed_kph * 1000 / 3600  # km/h を m/s に変換
+            travel_time_sec = length / speed_mps  # 時間 = 距離 / 速度
+            total_time_sec += travel_time_sec
+        return total_time_sec / 60  # 分に変換
 
     # 経路の所要時間を計算
-    # shortest_route_time_sec = calculate_route_travel_time(G, shortest_route)
-    # shortest_route_time_min = shortest_route_time_sec / 60  # 分に変換
-
-    # backstreet_route_1_time_sec = calculate_route_travel_time(G, backstreet_route_1)
-    # backstreet_route_1_time_min = backstreet_route_1_time_sec / 60  # 分に変換
+    shortest_route_time = math.floor(calculate_route_time(shortest_route))
+    backstreet_route_1_time = math.floor(calculate_route_time(backstreet_route_1))
 
     # backstreet_route_2_time_sec = calculate_route_travel_time(G, backstreet_route_2)
     # backstreet_route_2_time_min = backstreet_route_2_time_sec / 60  # 分に変換
 
-    # OpenStreetMap のタイルを使用して、経路を地図にプロット
-    folium_map = folium.Map(location=[departure_lat, departure_lon], zoom_start=60, tiles="OpenStreetMap")
+    # OpenStreetMap のタイルを指定
+    folium_map = folium.Map(zoom_start=15, tiles="OpenStreetMap")
 
     # 経路を地図にプロット
     folium_map = ox.plot_route_folium(
         G,
         shortest_route,
-        route_map=None,
+        route_map=folium_map,
         color="blue"
     )
 
@@ -128,12 +122,12 @@ def foliummap():
         color="green"
     )
 
-    folium_map = ox.plot_route_folium(
-        G,
-        backstreet_route_2,
-        route_map=folium_map,
-        color="red"
-    )
+    # folium_map = ox.plot_route_folium(
+    #     G,
+    #     backstreet_route_2,
+    #     route_map=folium_map,
+    #     color="red"
+    # )
 
     # 出発地点と目的地点を地図にマーカーを追加
     folium.Marker(location=[departure_lat, departure_lon], icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
@@ -160,7 +154,11 @@ def foliummap():
     # ).add_to(folium_map)
 
     folium_map.save("templates/map.html")
-    return render_template("folium_map.html")
+    return render_template(
+        "folium_map.html",
+        shortest_route_time=shortest_route_time,
+        backstreet_route_1_time=backstreet_route_1_time,
+    )
 
 
 if __name__ == "__main__":
