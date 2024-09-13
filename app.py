@@ -91,7 +91,7 @@ def foliummap():
         for u, v in zip(route[:-1], route[1:]):
             edge_data = G.get_edge_data(u, v)[0]
             length = edge_data.get("length", 1)  # メートル
-            speed_kph = edge_data.get("maxspeed", 5)  # デフォルト速度 5 km/h
+            speed_kph = edge_data.get("maxspeed", 4.5)  # デフォルト速度 4.5 km/h
             speed_mps = speed_kph * 1000 / 3600  # km/h を m/s に変換
             travel_time_sec = length / speed_mps  # 時間 = 距離 / 速度
             total_time_sec += travel_time_sec

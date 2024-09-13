@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>folium map</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         #search-box {
             position: absolute;
@@ -25,11 +26,11 @@
     </div>
     <div id="search-box">
         <form id="route-form" method="POST" action="/foliummap">
-            <label>出発地:</label><br>
+            <label>出発地 (Start) :</label><br>
             <input type="text" id="departure" name="departure" placeholder="出発地を入力"><br>
-            <label>目的地:</label><br>
-            <input type="text" id="destination" name="destination" placeholder="目的地を入力"><br>
-            <button type="submit">検索</button>
+            <label>目的地 (Goal) :</label><br>
+            <input type="text" id="destination" name="destination" placeholder="目的地を入力"><br><br>
+            <button type="submit">検索</button><br><br>
         </form>
     </div>
 

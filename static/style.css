@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+/* ベースフォントと色 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* 検索ボックスのスタイル */
+#search-box {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Helvetica', sans-serif;
+}
+
+/* ラベルのスタイル */
+#search-box label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+}
+
+/* インプットフィールドのスタイル */
+#search-box input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+/* ボタンのスタイル */
+#search-box button {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* ボタンホバー時のエフェクト */
+#search-box button:hover {
+    background-color: #218838;
+}
+
+/* 経路の所要時間のスタイル */
+#search-box h3 {
+    font-size: 18px;
+    color: #444;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#search-box p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
