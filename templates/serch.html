@@ -18,21 +18,59 @@
             z-index: 1000;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div style="height:1000px; width:1800px;">
-        <!-- init mapの表示 -->
-        {% include "initmap.html" %}
-    </div>
-    <div id="search-box">
-        <form id="route-form" method="POST" action="/foliummap">
-            <label>出発地 (Start) :</label><br>
-            <input type="text" id="departure" name="departure" placeholder="出発地を入力"><br>
-            <label>目的地 (Goal) :</label><br>
-            <input type="text" id="destination" name="destination" placeholder="目的地を入力"><br><br>
-            <button type="submit">検索</button><br><br>
-        </form>
-    </div>
+
+<div style="height:1000px; width:1800px;">
+    <!-- initmap.htmlの表示 -->
+    {% include "initmap.html" %}
+</div>
+
+<div id="search-box">
+    <form id="route-form" method="POST" action="/foliummap">
+        <label>出発地 (Start) :</label><br>
+        <input type="text" id="departure" name="departure" placeholder="出発地を入力"><br>
+        <label>目的地 (Goal) :</label><br>
+        <input type="text" id="destination" name="destination" placeholder="目的地を入力"><br><br>
+        <button type="submit">検索</button><br><br>
+    </form>
+    
+    <!-- 現在地取得ボタン -->
+    <button id="getLocationButton">現在地を取得</button>
+</div>
+
+<script>
+    // 現在地を取得してFlaskサーバーにPOSTする
+    $(document).ready(function() {
+        $('#getLocationButton').on('click', function(e) {
+            e.preventDefault();  // デフォルト動作を停止
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+
+                    // FlaskサーバーにPOSTリクエストでデータを送信
+                    $.ajax({
+                        url: '/',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ "latitude": lat, "longitude": lon }),
+                        success: function(response) {
+                            // 地図を再読み込み
+                            window.location.reload();
+                        },
+                        error: function(error) {
+                            console.log("Error:", error);
+                        }
+                    });
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

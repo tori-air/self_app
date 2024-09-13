@@ -7,17 +7,41 @@ import osmnx as ox
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def serch():
-    # 初期地図の設定
-    start_coord = [39.7036, 141.1527]
+    lat, lon = None, None  # 初期化
 
-    # OpenStreetMap のタイルを使用して、経路を地図にプロット
-    folium_map = folium.Map(location=start_coord, zoom_start=15, tiles="OpenStreetMap")
-    folium.Marker(location=start_coord, icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
+    if request.method == "POST":
+        data = request.json
+        lat = data.get("latitude")
+        lon = data.get("longitude")
 
-    folium_map.save("templates/initmap.html")
+        if lat and lon:
+            # 緯度と経度が取得できた場合にのみ地図を作成
+            lat = float(lat)
+            lon = float(lon)
+
+            # OpenStreetMap のタイルを使用して、経路を地図にプロット
+            folium_map = folium.Map(location=[lat, lon], zoom_start=15, tiles="OpenStreetMap")
+            folium.Marker(location=[lat, lon], icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
+
+            folium_map.save("templates/initmap.html")
+        return render_template("serch.html", lat=lat, lon=lon)
+
+    # GETリクエストに対するデフォルトの動作
     return render_template("serch.html")
+
+# @app.route("/")
+# def serch():
+#     # 初期地図の設定
+#     start_coord = [39.7036, 141.1527]
+
+#     # OpenStreetMap のタイルを使用して、経路を地図にプロット
+#     folium_map = folium.Map(location=start_coord, zoom_start=15, tiles="OpenStreetMap")
+#     folium.Marker(location=start_coord, icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
+
+#     folium_map.save("templates/initmap.html")
+#     return render_template("serch.html")
 
 
 @app.route("/foliummap", methods=["POST"])
