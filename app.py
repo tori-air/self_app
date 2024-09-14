@@ -32,7 +32,7 @@ def serch():
     return render_template("serch.html")
 
 
-@app.route("/foliummap", methods=["POST"])
+@app.route("/foliummap", methods=["GET", "POST"])
 def foliummap():
     # フォームデータから出発地と目的地を取得
     departure = request.form.get("departure")
