@@ -29,15 +29,22 @@
             <label>出発地 (Start) :</label><br>
             <input type="text" id="departure" name="departure" placeholder="出発地を入力"><br>
             <label>目的地 (Goal) :</label><br>
-            <input type="text" id="destination" name="destination" placeholder="目的地を入力"><br><br>
+            <input type="text" id="destination" name="destination" placeholder="目的地を入力"><br>
             <button type="submit"><img src="{{ url_for('static', filename='icon/search.png') }}" alt="Serch Icon">検索 (serch)</button><br><br>
                 
         <!-- 現在地取得ボタン -->
         <button id="getLocationButton"><img src="{{ url_for('static', filename='icon/map-pin.png') }}" alt="Location Icon">
-            現在地を取得<br>(Get current location)</button>
-                        <h3>所要時間 (Time required)</h3>
-            <p>最短経路: {{ shortest_route_time }} 分</p>
-            <p>裏道1: {{ backstreet_route_1_time }} 分</p><br>
+            現在地を取得<br>(Get current location)</button><br><br>
+
+            <h2>検索結果 (Search results)</h2>
+            <p>
+                <img src="{{ url_for('static',  filename='icon/walk.png') }}" alt="Walk Icon", class="walk">
+                <span class="line dashed-line"></span>
+                マニアックルート:  {{ backstreet_route_1_time }} 分</p><br>
+            <p>
+                <img src="{{ url_for('static',  filename='icon/run.png') }}" alt="Run Icon", class="run">
+                <span class="line straight-line"></span>
+                最速定番ルート: {{ shortest_route_time }} 分</p>
         </form>
     </div>
 

@@ -57,8 +57,8 @@ body {
     background-color: #218838;
 }
 
-/* 経路の所要時間のスタイル */
-#search-box h3 {
+/* 検索結果のスタイル */
+#search-box h2 {
     font-size: 18px;
     color: #444;
     margin-top: 20px;
@@ -66,7 +66,7 @@ body {
 }
 
 #search-box p {
-    font-size: 14px;
+    font-size: 15px;
     color: #666;
     margin-bottom: 5px;
 }
@@ -77,4 +77,31 @@ body {
     height: 20px; /* 画像の高さを指定 */
     vertical-align: middle;  /* テキストと画像を縦に揃える */
     margin-right: 8px;  /* 画像とテキストの間に少し余白を追加 */
+}
+
+#search-box img {
+    width: 50px;  /* 画像の幅を指定 */
+    height: 50px; /* 画像の高さを指定 */
+    vertical-align: middle;  /* テキストと画像を縦に揃える */
+    margin-right: 5px;  /* 画像とテキストの間に少し余白を追加 */
+}
+
+/* 画像とテキストの間に線を追加 */
+.line {
+    display: inline-block;
+    width: 33px;    /* 線の長さ */
+    height: 5px;    /* 線の太さ */
+    margin: 0 10px; /* 画像と線、線とテキストの間の余白 */
+    vertical-align: middle;
+}
+
+/* 青い直線 */
+.straight-line {
+    background-color: blue;
+    opacity: 0.3;
+}
+
+/* 青い点線 */
+.dashed-line {
+    border-top: 2px dashed blue;
 }

@@ -135,7 +135,7 @@ def foliummap():
         route_map=folium_map,
         color="blue",
         weight=5,
-        dash_array="7, 10"
+        dash_array="5, 10"
     )
 
     # folium_map = ox.plot_route_folium(
