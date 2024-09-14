@@ -76,26 +76,8 @@ def foliummap():
         else:
             return length
 
-    def custom_weight_2(u, v, data):
-        length = data.get("length", 1)  # 距離情報（m）
-        highway = data.get("highway", "")
-        landuse = data.get("landuse", "")
-        amenity = data.get("amenity", "")
-        shop = data.get("shop", "")
-        # 古い通りや商店街を優先する
-        if highway in ["residential", "unclassified", "tertiary", "tertiary_link"]:
-            return length * 0.7  # 住宅街やローカルな通りはコストを下げて優先
-        if landuse in ["commercial", "retail"]:
-            return length * 0.5  # 商業地区や商店街を優先
-        if shop or amenity:  # 店や施設があるエリアを優先
-            return length * 0.5  # 商業施設や商店街のルートを優先
-        # 他の道路は通常通り
-        else:
-            return length
-
     # カスタム重みを使って経路を計算
     backstreet_route_1 = ox.shortest_path(G, dep_node, des_node, weight=custom_weight_1)
-    backstreet_route_2 = ox.shortest_path(G, dep_node, des_node, weight=custom_weight_2)
 
     # 路線上のエッジごとの所要時間を計算する関数
     def calculate_route_time(route):
@@ -112,9 +94,6 @@ def foliummap():
     # 経路の所要時間を計算
     shortest_route_time = math.floor(calculate_route_time(shortest_route))
     backstreet_route_1_time = math.floor(calculate_route_time(backstreet_route_1))
-
-    # backstreet_route_2_time_sec = calculate_route_travel_time(G, backstreet_route_2)
-    # backstreet_route_2_time_min = backstreet_route_2_time_sec / 60  # 分に変換
 
     # OpenStreetMap のタイルを指定
     folium_map = folium.Map(zoom_start=15, tiles="OpenStreetMap")
@@ -138,36 +117,9 @@ def foliummap():
         dash_array="5, 10"
     )
 
-    # folium_map = ox.plot_route_folium(
-    #     G,
-    #     backstreet_route_2,
-    #     route_map=folium_map,
-    #     color="red"
-    # )
-
     # 出発地点と目的地点を地図にマーカーを追加
     folium.Marker(location=[departure_lat, departure_lon], icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
     folium.Marker(location=[destination_lat, destination_lon], icon=folium.Icon(color="red", icon="map-marker"), popup="GOAL").add_to(folium_map)
-
-    # 時間情報を表示するポップアップを追加
-    # ポップアップを手動で追加
-    # folium.Marker(
-    #     location=[departure_lat, departure_lon],
-    #     popup=f"Shortest Route - Time: {shortest_route_time_min:.2f} minutes",
-    #     icon=folium.Icon(color="blue"),
-    # ).add_to(folium_map)
-
-    # folium.Marker(
-    #     location=[departure_lat, departure_lon],
-    #     popup=f"Backstreet Route 1 - Time: {backstreet_route_1_time_min:.2f} minutes",
-    #     icon=folium.Icon(color="green"),
-    # ).add_to(folium_map)
-
-    # folium.Marker(
-    #     location=[departure_lat, departure_lon],
-    #     popup=f"Backstreet Route 2 - Time: {backstreet_route_2_time_min:.2f} minutes",
-    #     icon=folium.Icon(color="red"),
-    # ).add_to(folium_map)
 
     folium_map.save("templates/map.html")
     return render_template(
