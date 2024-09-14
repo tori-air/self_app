@@ -33,11 +33,12 @@
         <input type="text" id="departure" name="departure" placeholder="出発地を入力"><br>
         <label>目的地 (goal) :</label><br>
         <input type="text" id="destination" name="destination" placeholder="目的地を入力"><br><br>
-        <button type="submit">検索 (serch)</button><br><br>
+        <button type="submit"><img src="{{ url_for('static', filename='icon/search.png') }}" alt="Serch Icon">検索 (serch)</button><br><br>
     </form>
     
     <!-- 現在地取得ボタン -->
-    <button id="getLocationButton">現在地を取得<br>(Get current location)</button>
+    <button id="getLocationButton"><img src="{{ url_for('static', filename='icon/map-pin.png') }}" alt="Location Icon">
+        現在地を取得<br>(Get current location)</button>
 </div>
 
 <script>

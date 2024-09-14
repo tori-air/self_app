@@ -70,3 +70,11 @@ body {
     color: #666;
     margin-bottom: 5px;
 }
+
+/* 現在地取得ボタン内の画像サイズを調整 */
+#search-box button img {
+    width: 20px;  /* 画像の幅を指定 */
+    height: 20px; /* 画像の高さを指定 */
+    vertical-align: middle;  /* テキストと画像を縦に揃える */
+    margin-right: 8px;  /* 画像とテキストの間に少し余白を追加 */
+}
