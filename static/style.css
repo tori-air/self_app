@@ -59,6 +59,7 @@ body {
 
 /* 検索結果のスタイル */
 #search-box h2 {
+    font-family: 'Arial', sans-serif;
     font-size: 18px;
     color: #444;
     margin-top: 20px;
