@@ -22,7 +22,7 @@ def serch():
             lon = float(lon)
 
             # OpenStreetMap のタイルを使用して、経路を地図にプロット
-            folium_map = folium.Map(location=[lat, lon], zoom_start=15, tiles="OpenStreetMap")
+            folium_map = folium.Map(location=[lat, lon], zoom_start=17, tiles="OpenStreetMap")
             folium.Marker(location=[lat, lon], icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
 
             folium_map.save("templates/initmap.html")
@@ -30,18 +30,6 @@ def serch():
 
     # GETリクエストに対するデフォルトの動作
     return render_template("serch.html")
-
-# @app.route("/")
-# def serch():
-#     # 初期地図の設定
-#     start_coord = [39.7036, 141.1527]
-
-#     # OpenStreetMap のタイルを使用して、経路を地図にプロット
-#     folium_map = folium.Map(location=start_coord, zoom_start=15, tiles="OpenStreetMap")
-#     folium.Marker(location=start_coord, icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
-
-#     folium_map.save("templates/initmap.html")
-#     return render_template("serch.html")
 
 
 @app.route("/foliummap", methods=["POST"])
@@ -88,7 +76,7 @@ def foliummap():
         else:
             return length
 
-    def custom_weight_2(x, y, data):
+    def custom_weight_2(u, v, data):
         length = data.get("length", 1)  # 距離情報（m）
         highway = data.get("highway", "")
         landuse = data.get("landuse", "")
@@ -136,14 +124,18 @@ def foliummap():
         G,
         shortest_route,
         route_map=folium_map,
-        color="blue"
+        color="blue",
+        opacity=0.3,
+        weight=7,
     )
 
     folium_map = ox.plot_route_folium(
         G,
         backstreet_route_1,
         route_map=folium_map,
-        color="green"
+        color="blue",
+        weight=5,
+        dash_array="10, 10"
     )
 
     # folium_map = ox.plot_route_folium(

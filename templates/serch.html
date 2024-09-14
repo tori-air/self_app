@@ -29,15 +29,15 @@
 
 <div id="search-box">
     <form id="route-form" method="POST" action="/foliummap">
-        <label>出発地 (Start) :</label><br>
+        <label>出発地 (start) :</label><br>
         <input type="text" id="departure" name="departure" placeholder="出発地を入力"><br>
-        <label>目的地 (Goal) :</label><br>
+        <label>目的地 (goal) :</label><br>
         <input type="text" id="destination" name="destination" placeholder="目的地を入力"><br><br>
-        <button type="submit">検索</button><br><br>
+        <button type="submit">検索 (serch)</button><br><br>
     </form>
     
     <!-- 現在地取得ボタン -->
-    <button id="getLocationButton">現在地を取得</button>
+    <button id="getLocationButton">現在地を取得<br>(Get current location)</button>
 </div>
 
 <script>
@@ -50,6 +50,9 @@
                     var lat = position.coords.latitude;
                     var lon = position.coords.longitude;
 
+                    // 出発地フィールドに現在地の緯度・経度を入力
+                    $('#departure').val(lat + ", " + lon);
+                    
                     // FlaskサーバーにPOSTリクエストでデータを送信
                     $.ajax({
                         url: '/',
@@ -57,8 +60,7 @@
                         contentType: 'application/json',
                         data: JSON.stringify({ "latitude": lat, "longitude": lon }),
                         success: function(response) {
-                            // 地図を再読み込み
-                            window.location.reload();
+                            console.log("Location sent to server successfully.");
                         },
                         error: function(error) {
                             console.log("Error:", error);
