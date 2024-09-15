@@ -37,7 +37,7 @@
         <button id="getLocationButton"><img src="{{ url_for('static', filename='icon/map-pin.png') }}" alt="Location Icon">
             現在地を取得<br>(Get current location)</button><br><br><br>
 
-            <h2>検索結果 (Search results)</h2>
+            <h2>検索結果 (Serch results)</h2>
             <p>
                 <img src="{{ url_for('static',  filename='icon/walk.png') }}" alt="Walk Icon", class="walk">
                 <span class="line dashed-line"></span>
@@ -45,7 +45,7 @@
             <p>
                 <img src="{{ url_for('static',  filename='icon/run.png') }}" alt="Run Icon", class="run">
                 <span class="line straight-line"></span>
-                最速定番ルート: <span class="time">{{ shortest_route_time }}</span>  分</p>
+                最短定番ルート: <span class="time">{{ shortest_route_time }}</span>  分</p>
         </form>
     </div>
 
