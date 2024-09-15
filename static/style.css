@@ -22,6 +22,7 @@ body {
 
 /* ラベルのスタイル */
 #search-box label {
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
     font-weight: bold;
     color: #444;
@@ -59,16 +60,19 @@ body {
 
 /* 検索結果のスタイル */
 #search-box h2 {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
     color: #444;
     margin-top: 20px;
     margin-bottom: 10px;
+    font-weight: 600; 
 }
 
 #search-box p {
+    font-family: 'Poppins', sans-serif;
     font-size: 15px;
     color: #666;
+    font-weight: bold;
     margin-bottom: 5px;
 }
 

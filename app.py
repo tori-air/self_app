@@ -23,7 +23,7 @@ def serch():
 
             # OpenStreetMap のタイルを使用して、経路を地図にプロット
             folium_map = folium.Map(location=[lat, lon], zoom_start=17, tiles="OpenStreetMap")
-            folium.Marker(location=[lat, lon], icon=folium.Icon(icon="user"), popup="START").add_to(folium_map)
+            folium.Marker(location=[lat, lon], icon=folium.Icon(icon="user"), popup="Current location").add_to(folium_map)
 
             folium_map.save("templates/initmap.html")
         return render_template("serch.html", lat=lat, lon=lon)
@@ -52,9 +52,6 @@ def foliummap():
     dep_node = ox.nearest_nodes(G, departure_lon, departure_lat)
     des_node = ox.nearest_nodes(G, destination_lon, destination_lat)
 
-    # 最短経路探索
-    shortest_route = ox.shortest_path(G, dep_node, des_node, weight="length")
-
     # 主要道路を避けるためエッジにカスタム重みを設定
     def custom_weight_1(u, v, data):
         length = data.get("length", 1)  # 距離情報（m）
@@ -76,6 +73,8 @@ def foliummap():
         else:
             return length
 
+    # 最短経路探索
+    shortest_route = ox.shortest_path(G, dep_node, des_node, weight="length")
     # カスタム重みを使って経路を計算
     backstreet_route_1 = ox.shortest_path(G, dep_node, des_node, weight=custom_weight_1)
 
