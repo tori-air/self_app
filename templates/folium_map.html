@@ -41,11 +41,11 @@
             <p>
                 <img src="{{ url_for('static',  filename='icon/walk.png') }}" alt="Walk Icon", class="walk">
                 <span class="line dashed-line"></span>
-                よりみちルート:  {{ backstreet_route_1_time }} 分</p><br>
+                よりみちルート: <span class="time">{{ backstreet_route_1_time }}</span> 分</p><br>
             <p>
                 <img src="{{ url_for('static',  filename='icon/run.png') }}" alt="Run Icon", class="run">
                 <span class="line straight-line"></span>
-                最速定番ルート: {{ shortest_route_time }} 分</p>
+                最速定番ルート: <span class="time">{{ shortest_route_time }}</span>  分</p>
         </form>
     </div>
 

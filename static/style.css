@@ -76,6 +76,13 @@ body {
     margin-bottom: 5px;
 }
 
+.time {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;  /* backstreet_route_time を大きく表示 */
+    font-weight: bold;  /* 太字にして目立たせる */
+    color: #000;      /* 太字のカラーを設定 */
+}
+
 /* 現在地取得ボタン内の画像サイズを調整 */
 #search-box button img {
     width: 20px;  /* 画像の幅を指定 */
